@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="dependencies">
+      <UniqueIdentifier>{ea05d03e-dce9-4922-9456-4415d944b34a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\features">
+      <UniqueIdentifier>{bc537aef-04e7-418d-920a-2bbff3192fbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{01c7b78c-940d-4509-91ab-7ca02f49469f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine.h">
+      <Filter>dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobject.h">
+      <Filter>dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="hook.h">
+      <Filter>dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="aimbot.h">
+      <Filter>Source Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3d.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2d.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="variables.h">
+      <Filter>dependencies</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="constants.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="hook.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="aimbot.cpp">
+      <Filter>Source Files\features</Filter>
+    </ClCompile>
+    <ClCompile Include="vector3d.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2d.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="variables.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobject.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
