@@ -55,6 +55,10 @@ void halo_engine::get_snapshot(engine_snapshot& snapshot)
 	}
 }
 
+HWND halo_engine::get_wnd_handle() {
+	return haloHWND;
+}
+
 //guess this is write process memory
 void halo_engine::patch_memory(LPVOID dest_address, uint8_t* src_address, size_t patch_size)
 {

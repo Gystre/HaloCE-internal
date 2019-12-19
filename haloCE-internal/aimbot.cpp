@@ -9,8 +9,6 @@
 
 aimbot botaim;
 
-matrix4x4 viewMatrix;
-
 GameObject* getClosestToCrosshair(engine_snapshot snapshot) {
 	GameObject* closest = nullptr;
 
@@ -18,10 +16,12 @@ GameObject* getClosestToCrosshair(engine_snapshot snapshot) {
 	vec2_t crosshair = vec2_t(globals::engine->window_client_rect().right/2, globals::engine->window_client_rect().bottom/2);
 	float dist = FLT_MAX;
 
+	mat4_t view_matrix = *reinterpret_cast<mat4_t*>(addr::VIEW_MATRIX);
+
 	for (GameObject* entity : snapshot.gameObjects) {
 		if (entity && entity->tag_id != tags::PLAYER && entity->health > 0) {
 			vec2_t headPos; //passed by reference so will always be initialized
-			if (viewMatrix.worldToScreen(entity->position, globals::engine->window_client_rect().right, globals::engine->window_client_rect().bottom, headPos)) {
+			if (view_matrix.worldToScreen(entity->position, globals::engine->window_client_rect().right, globals::engine->window_client_rect().bottom, headPos)) {
 				float newDist = crosshair.distance(headPos);
 				if (newDist < dist) {
 					closest = entity;
@@ -56,9 +56,10 @@ GameObject* getClosest(engine_snapshot snapshot) {
 }
 
 void aimbot::update(engine_snapshot snapshot) {
-	if (menu::aim_enabled) {
+	//if (menu::aim_enabled) {
+	if(GetAsyncKeyState(VK_LMENU)) {
 		GameObject* local_player = snapshot.get_player();
-		GameObject* entity = getClosest(snapshot);
+		GameObject* entity = getClosestToCrosshair(snapshot);
 
 		if (entity == nullptr || local_player == nullptr) return;
 
@@ -73,7 +74,6 @@ void aimbot::update(engine_snapshot snapshot) {
 		double anglePitch = atan2(dz, distance);
 
 		vec3_t ang = vec3_t(angleYaw, anglePitch, 0);
-		std::cout << ang.toString() << std::endl;
 		set_view_angles(ang);
 	}
 }

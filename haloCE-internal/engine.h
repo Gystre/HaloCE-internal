@@ -44,7 +44,7 @@ public:
 	RECT window_client_rect();
 
 	void get_snapshot(engine_snapshot& snapshot);
-
+	HWND get_wnd_handle();
 	void patch_memory(LPVOID dest_address, uint8_t* src_address, size_t patch_size);
 
 	static halo_engine& get() {

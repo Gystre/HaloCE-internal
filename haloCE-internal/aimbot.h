@@ -1,6 +1,5 @@
 #pragma once
 
-#include "gameobject.h"
 #include "engine.h"
 
 class aimbot {

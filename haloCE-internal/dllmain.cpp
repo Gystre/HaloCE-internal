@@ -9,6 +9,7 @@ void start() {
 	SetConsoleTitleA("Kyle's HaloCE hacks!");
 
 	globals::init();
+	
 
 	while (!GetAsyncKeyState(VK_END))
 		loop();

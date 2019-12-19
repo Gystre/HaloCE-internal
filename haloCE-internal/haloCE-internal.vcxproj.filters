@@ -57,6 +57,15 @@
     <ClInclude Include="variables.h">
       <Filter>dependencies</Filter>
     </ClInclude>
+    <ClInclude Include="drawing.h">
+      <Filter>dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="esp.h">
+      <Filter>Source Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="vector4d.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -91,6 +100,15 @@
     </ClCompile>
     <ClCompile Include="gameobject.cpp">
       <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="esp.cpp">
+      <Filter>Source Files\features</Filter>
+    </ClCompile>
+    <ClCompile Include="vector4d.cpp">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

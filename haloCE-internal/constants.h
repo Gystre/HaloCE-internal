@@ -3,7 +3,8 @@
 
 namespace addr {
 	extern uint32_t* RUNTIME_DATA_BEGIN;
-	extern uint32_t* VIEW_ANGLES; //for viewangles
+	extern uint32_t* VIEW_ANGLES;
+	extern uint32_t* VIEW_MATRIX;
 }
 
 struct ObjectPoolObject
