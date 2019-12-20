@@ -4,6 +4,7 @@
 
 //would use gdi+ but couldn't get it work so here we are with gdi >:(
 //might be because i got HDC wrong, now that i think about it...
+//example call: drawing::drawLine(0, 0, 500, 500, COLORREF(RGB(255,0,0)));
 
 namespace drawing {
 	HDC HDC_Desktop;
@@ -13,6 +14,10 @@ namespace drawing {
 	void init() {
 		HDC_Desktop = GetDC(globals::engine->get_wnd_handle());
 		enemy_brush = CreateSolidBrush(RGB(255, 0, 0));
+	}
+
+	void shutdown() {
+		ReleaseDC(globals::engine->get_wnd_handle(), HDC_Desktop);
 	}
 
 	void drawFilledRect(int x, int y, int w, int h)

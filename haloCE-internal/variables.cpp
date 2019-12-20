@@ -9,6 +9,10 @@ namespace globals {
 		engine = std::make_unique<halo_engine>();
 		drawing::init();
 	}
+
+	void shutdown() {
+		drawing::shutdown();
+	}
 }
 
 namespace menu {

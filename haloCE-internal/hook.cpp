@@ -15,8 +15,6 @@ void loop() {
 	globals::engine->get_snapshot(snapshot);
 	snapshot.filter_enemies(); //dont aim at friends lol
 
-	//drawing::drawLine(0, 0, 500, 500, COLORREF(RGB(255,0,0)));
-
 	if (GetAsyncKeyState(VK_F1)) {
 		for (GameObject* entity : snapshot.gameObjects) {
 			entity->position = snapshot.get_player()->position;

@@ -9,12 +9,13 @@ void start() {
 	SetConsoleTitleA("Kyle's HaloCE hacks!");
 
 	globals::init();
-	
 
 	while (!GetAsyncKeyState(VK_END))
 		loop();
 		//look into way to split loop() into another thread
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+	globals::shutdown();
 
 	fclose((FILE*)stdin);
 	fclose((FILE*)stdout);

@@ -59,6 +59,14 @@ HWND halo_engine::get_wnd_handle() {
 	return haloHWND;
 }
 
+float halo_engine::get_width() {
+	return window_client_rect().right;
+}
+
+float halo_engine::get_height() {
+	return window_client_rect().bottom;
+}
+
 //guess this is write process memory
 void halo_engine::patch_memory(LPVOID dest_address, uint8_t* src_address, size_t patch_size)
 {

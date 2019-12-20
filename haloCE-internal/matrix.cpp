@@ -38,5 +38,13 @@ bool mat4_t::worldToScreen(vec3_t pos, int windowWidth, int windowHeight, vec2_t
 
     screen.x = (windowWidth / 2 * NDC.x) + (NDC.x + windowWidth / 2);
     screen.y = -(windowHeight / 2 * NDC.y) + (NDC.y + windowHeight / 2);
+
     return true;
+}
+
+std::string mat4_t::toString() {
+	return "[ " + std::to_string(m11) + " " + std::to_string(m12) + " " + std::to_string(m13) + " " + std::to_string(m14) + " ]\n" +
+		"[ " + std::to_string(m21) + " " + std::to_string(m22) + " " + std::to_string(m23) + " " + std::to_string(m24) + " ]\n" +
+		"[ " + std::to_string(m31) + " " + std::to_string(m32) + " " + std::to_string(m33) + " " + std::to_string(m34) + " ]\n" +
+		"[ " + std::to_string(m41) + " " + std::to_string(m42) + " " + std::to_string(m43) + " " + std::to_string(m44) + " ]";
 }

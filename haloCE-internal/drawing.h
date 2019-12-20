@@ -2,6 +2,7 @@
 
 namespace drawing {
 	void init();
+	void shutdown();
 	void drawFilledRect(int x, int y, int w, int h);
 	void drawBorderBox(int x, int y, int w, int h, int thickness);
 	void drawLine(float StartX, float StartY, float EndX, float EndY, COLORREF Pen);

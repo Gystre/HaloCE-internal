@@ -45,6 +45,8 @@ public:
 
 	void get_snapshot(engine_snapshot& snapshot);
 	HWND get_wnd_handle();
+	float get_width();
+	float get_height();
 	void patch_memory(LPVOID dest_address, uint8_t* src_address, size_t patch_size);
 
 	static halo_engine& get() {

@@ -13,7 +13,7 @@ GameObject* getClosestToCrosshair(engine_snapshot snapshot) {
 	GameObject* closest = nullptr;
 
 	//right = width, bottom = height
-	vec2_t crosshair = vec2_t(globals::engine->window_client_rect().right/2, globals::engine->window_client_rect().bottom/2);
+	vec2_t crosshair = vec2_t(globals::engine->get_width()/2, globals::engine->get_height()/2);
 	float dist = FLT_MAX;
 
 	mat4_t view_matrix = *reinterpret_cast<mat4_t*>(addr::VIEW_MATRIX);
@@ -21,7 +21,7 @@ GameObject* getClosestToCrosshair(engine_snapshot snapshot) {
 	for (GameObject* entity : snapshot.gameObjects) {
 		if (entity && entity->tag_id != tags::PLAYER && entity->health > 0) {
 			vec2_t headPos; //passed by reference so will always be initialized
-			if (view_matrix.worldToScreen(entity->position, globals::engine->window_client_rect().right, globals::engine->window_client_rect().bottom, headPos)) {
+			if (view_matrix.worldToScreen(entity->position, globals::engine->get_width(), globals::engine->get_height(), headPos)) {
 				float newDist = crosshair.distance(headPos);
 				if (newDist < dist) {
 					closest = entity;
@@ -59,7 +59,7 @@ void aimbot::update(engine_snapshot snapshot) {
 	//if (menu::aim_enabled) {
 	if(GetAsyncKeyState(VK_LMENU)) {
 		GameObject* local_player = snapshot.get_player();
-		GameObject* entity = getClosestToCrosshair(snapshot);
+		GameObject* entity = getClosest(snapshot);
 
 		if (entity == nullptr || local_player == nullptr) return;
 

@@ -23,4 +23,5 @@ public:
 	float m41, m42, m43, m44; //12, 13, 14, 15'
 
 	bool worldToScreen(vec3_t worldPos, int width, int height, vec2_t& out_pos);
+	std::string toString();
 };
