@@ -41,6 +41,7 @@ private:
 public:
 	halo_engine();
 
+
 	RECT window_client_rect();
 
 	void get_snapshot(engine_snapshot& snapshot);

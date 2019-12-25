@@ -66,6 +66,9 @@
     <ClInclude Include="vector4d.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files\features</Filter>
     </ClCompile>
     <ClCompile Include="vector4d.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
       <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>

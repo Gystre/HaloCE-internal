@@ -172,6 +172,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameobject.h" />
     <ClInclude Include="hook.h" />
+    <ClInclude Include="math.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="variables.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="esp.cpp" />
     <ClCompile Include="gameobject.cpp" />
     <ClCompile Include="hook.cpp" />
+    <ClCompile Include="math.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

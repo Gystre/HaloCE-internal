@@ -9,13 +9,13 @@ void start() {
 	SetConsoleTitleA("Kyle's HaloCE hacks!");
 
 	globals::init();
+	hook::init();
 
-	while (!GetAsyncKeyState(VK_END))
-		loop();
-		//look into way to split loop() into another thread
-		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	while (!GetAsyncKeyState(VK_RMENU))
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-	globals::shutdown();
+	hook::shutdown(); //unattaches functions
+	globals::shutdown(); //cleans drawing hook
 
 	fclose((FILE*)stdin);
 	fclose((FILE*)stdout);

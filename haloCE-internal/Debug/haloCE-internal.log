@@ -1,1 +1,3 @@
-﻿  haloCE-internal.vcxproj -> C:\Users\xaist\OneDrive\Documents\Github\HaloCE-internal\Debug\haloCE-internal.dll
+﻿  hook.cpp
+C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\hook.cpp(66,49): warning C4305: 'argument': truncation from 'double' to 'float'
+  haloCE-internal.vcxproj -> C:\Users\xaist\source\repos\haloCE-internal\Debug\haloCE-internal.dll

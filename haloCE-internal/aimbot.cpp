@@ -4,6 +4,7 @@
 #include "vector2d.h"
 #include "variables.h"
 #include "matrix.h"
+#include "math.h"
 
 #define M_PI 3.141592653589793238462643383279502f
 
@@ -12,16 +13,19 @@ aimbot botaim;
 GameObject* getClosestToCrosshair(engine_snapshot snapshot) {
 	GameObject* closest = nullptr;
 
-	//right = width, bottom = height
 	vec2_t crosshair = vec2_t(globals::engine->get_width()/2, globals::engine->get_height()/2);
 	float dist = FLT_MAX;
 
-	mat4_t view_matrix = *reinterpret_cast<mat4_t*>(addr::VIEW_MATRIX);
+	glm::vec3 pos = *reinterpret_cast<glm::vec3*>(addr::CAMERA_POS);
+	glm::vec3 dir = *reinterpret_cast<glm::vec3*>(addr::CAMERA_LOOK_VECTOR);
+	glm::vec3 lookAt = pos + dir;
+
+	glm::mat4 view_matrix = glm::lookAt(pos, lookAt, glm::vec3(0, 0, 1));
 
 	for (GameObject* entity : snapshot.gameObjects) {
 		if (entity && entity->tag_id != tags::PLAYER && entity->health > 0) {
 			vec2_t headPos; //passed by reference so will always be initialized
-			if (view_matrix.worldToScreen(entity->position, globals::engine->get_width(), globals::engine->get_height(), headPos)) {
+			if (math::openGLworldToScreen(view_matrix, entity->position, globals::engine->get_width(), globals::engine->get_height(), headPos)) {
 				float newDist = crosshair.distance(headPos);
 				if (newDist < dist) {
 					closest = entity;
@@ -59,11 +63,9 @@ void aimbot::update(engine_snapshot snapshot) {
 	//if (menu::aim_enabled) {
 	if(GetAsyncKeyState(VK_LMENU)) {
 		GameObject* local_player = snapshot.get_player();
-		GameObject* entity = getClosest(snapshot);
+		GameObject* entity = getClosestToCrosshair(snapshot);
 
 		if (entity == nullptr || local_player == nullptr) return;
-
-		std::cout << entity->tag_id << ": " << entity->health << std::endl;
 
 		float dx = entity->position.x - local_player->position.x;
 		float dy = entity->position.y - local_player->position.y;

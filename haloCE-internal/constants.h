@@ -5,6 +5,8 @@ namespace addr {
 	extern uint32_t* RUNTIME_DATA_BEGIN;
 	extern uint32_t* VIEW_ANGLES;
 	extern uint32_t* VIEW_MATRIX;
+	extern uint32_t* CAMERA_POS;
+	extern uint32_t* CAMERA_LOOK_VECTOR;
 }
 
 struct ObjectPoolObject

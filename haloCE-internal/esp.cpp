@@ -4,17 +4,45 @@
 #include "matrix.h"
 #include "constants.h"
 #include "drawing.h"
+#include "vector4d.h"
+#include "math.h"
 
 esp pse;
 
+std::string tag_to_name(short tag) {
+	switch (tag) {
+		case tags::ELITE:
+			return "Elite";
+		case tags::GRUNT:
+			return "Grunt";
+		case tags::JACKAL:
+			return "Jackal";
+		case tags::HUNTER:
+			return "Hunter";
+		case tags::FLOOD_ELITE:
+			return "Flood Elite";
+		case tags::FLOOD_HUMAN:
+			return "Flood Human";
+		case tags::INFECTION_FORM:
+			return "Infection Form";
+		default:
+			return "Unknown";
+	}
+}
+
 void esp::update(engine_snapshot snapshot) {
-	mat4_t view_matrix = *reinterpret_cast<mat4_t*>(addr::VIEW_MATRIX);
+	glm::vec3 pos = *reinterpret_cast<glm::vec3*>(addr::CAMERA_POS);
+	glm::vec3 dir = *reinterpret_cast<glm::vec3*>(addr::CAMERA_LOOK_VECTOR);
+	glm::vec3 lookAt = pos + dir;
+
+	glm::mat4 view_matrix = glm::lookAt(pos, lookAt, glm::vec3(0, 0, 1));
+
 	for (int i = 0; i < snapshot.gameObjects.size(); i++) {
 		GameObject* entity = snapshot.gameObjects[i];
 		vec2_t screen_pos;
 		vec3_t view_angles = get_view_angles();
-		if (entity && entity->tag_id != tags::PLAYER && entity->health > 0 && view_matrix.worldToScreen(entity->position, globals::engine->get_width(), globals::engine->get_height(), screen_pos)) {
-			drawing::drawBorderBox(0, 0, 300, 400, 2);
+		if (entity && entity->tag_id != tags::PLAYER && entity->health > 0 && math::openGLworldToScreen(view_matrix, entity->position, globals::engine->get_width(), globals::engine->get_height(), screen_pos)) {
+			drawing::drawString(screen_pos.x, screen_pos.y, COLORREF(RGB(255, 0, 0)), tag_to_name(entity->tag_id).c_str());
 		}
 	}
 }
