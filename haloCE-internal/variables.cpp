@@ -15,6 +15,7 @@ namespace globals {
 	}
 }
 
-namespace menu {
+namespace settings {
+	bool menu_open = true;
 	bool aim_enabled = false;
 }

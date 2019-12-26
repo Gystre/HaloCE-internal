@@ -3,6 +3,7 @@
 #include "hook.h"
 #include "constants.h"
 #include "variables.h"
+#include "menu.h"
 #include "aimbot.h"
 #include "esp.h"
 #include "drawing.h"
@@ -33,23 +34,29 @@ void DetachFunc(PVOID* originalFunc, PVOID replacementFunc) {
 	DetourTransactionCommit();
 }
 
-//parameteres are wrong, look at more examples
-HRESULT __stdcall hkD3D9DrawIndexedPrimitive(D3DPRIMITIVETYPE device, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount) {
-
-
-	return originalD3D9DrawIndexedPrimitive(device, baseVertexIndex, minVertexIndex, numVertices, startIndex, primCount);
+HRESULT __stdcall hkD3D9DrawIndexedPrimitive(IDirect3DDevice9* pDevice, D3DPRIMITIVETYPE primType, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount) {
+	pse.doChams(pDevice, primType, baseVertexIndex, minVertexIndex, numVertices, startIndex, primCount);
+	
+	return originalD3D9DrawIndexedPrimitive(pDevice, primType, baseVertexIndex, minVertexIndex, numVertices, startIndex, primCount);
 }
 
 HRESULT __stdcall hkD3D9BeginScene(IDirect3DDevice9* pDevice) {
-
+	static bool runOnce = true;
+	if (runOnce) {
+		runOnce = false;
+		menu::init(globals::engine->get_wnd_handle(), pDevice);
+		pse.createTexture(pDevice, (LPCVOID)&bRed, sizeof(bRed), &pse.texRed);
+	}
 	return originalD3D9BeginScene(pDevice);
 }
 
 static bool is_down = false;
 static bool is_clicked = false;
-static engine_snapshot snapshot;
 
 HRESULT __stdcall hkD3D9EndScene(IDirect3DDevice9* pDevice) {
+	menu::tick();
+
+	engine_snapshot snapshot;
 	globals::engine->get_snapshot(snapshot);
 	snapshot.filter_enemies();
 
@@ -85,7 +92,7 @@ HRESULT __stdcall hkD3D9EndScene(IDirect3DDevice9* pDevice) {
 
 	if (is_clicked)
 	{
-		menu::aim_enabled = !menu::aim_enabled;
+		settings::aim_enabled = !settings::aim_enabled;
 	}
 
 	return originalD3D9EndScene(pDevice);
@@ -113,14 +120,16 @@ void hook::init() {
 	AttachFunc(&(PVOID&)originalD3D9EndScene, hkD3D9EndScene);
 
 	originalD3D9DrawIndexedPrimitive = (D3D9DrawIndexedPrimitive_t)(d3d9VTable[82]);
-	AttachFunc(&(PVOID&)originalD3D9DrawIndexedPrimitive, hkD3D9DrawIndexedPrimitive);
+	//no idea why this not working, not getting any error messages
+	//AttachFunc(&(PVOID&)originalD3D9DrawIndexedPrimitive, hkD3D9DrawIndexedPrimitive);
 
 	dummyD3D9Device->Release();
 	pD3D->Release();
 }
 
 void hook::shutdown() {
+	menu::shutdown();
 	DetachFunc(&(PVOID&)originalD3D9EndScene, hkD3D9EndScene);
 	DetachFunc(&(PVOID&)originalD3D9BeginScene, hkD3D9BeginScene);
-	DetachFunc(&(PVOID&)originalD3D9DrawIndexedPrimitive, hkD3D9DrawIndexedPrimitive);
+	//DetachFunc(&(PVOID&)originalD3D9DrawIndexedPrimitive, hkD3D9DrawIndexedPrimitive);
 }

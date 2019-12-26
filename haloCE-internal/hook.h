@@ -7,11 +7,11 @@
 
 typedef HRESULT(__stdcall* D3D9BeginScene_t)(IDirect3DDevice9* pDevice);
 typedef HRESULT(__stdcall* D3D9EndScene_t)(IDirect3DDevice9* pDevice);
-typedef HRESULT(__stdcall* D3D9DrawIndexedPrimitive_t)(D3DPRIMITIVETYPE device, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount);
+typedef HRESULT(__stdcall* D3D9DrawIndexedPrimitive_t)(IDirect3DDevice9* pDevice, D3DPRIMITIVETYPE primType, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount);
 
 HRESULT __stdcall hkD3D9EndScene(IDirect3DDevice9* pDevice);
 HRESULT __stdcall hkD3D9BeginScene(IDirect3DDevice9* pDevice);
-HRESULT __stdcall hkD3D9DrawIndexedPrimitive(D3DPRIMITIVETYPE device, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount);
+HRESULT __stdcall hkD3D9DrawIndexedPrimitive(IDirect3DDevice9* pDevice, D3DPRIMITIVETYPE primType, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount);
 
 
 namespace hook {

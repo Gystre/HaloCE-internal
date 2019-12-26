@@ -2,11 +2,15 @@
 #include "hook.h"
 #include "variables.h"
 
+#define DEBUG
+
 void start() {
+#ifdef DEBUG
 	AllocConsole();
 	freopen_s((FILE**)stdin, "CONIN$", "r", stdin);
 	freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
 	SetConsoleTitleA("Kyle's HaloCE hacks!");
+#endif
 
 	globals::init();
 	hook::init();
@@ -17,9 +21,11 @@ void start() {
 	hook::shutdown(); //unattaches functions
 	globals::shutdown(); //cleans drawing hook
 
+#ifdef DEBUG
 	fclose((FILE*)stdin);
 	fclose((FILE*)stdout);
 	FreeConsole();
+#endif
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }

@@ -30,6 +30,19 @@ std::string tag_to_name(short tag) {
 	}
 }
 
+void esp::createTexture(IDirect3DDevice9* pDevice, LPCVOID color, UINT colorSize, LPDIRECT3DTEXTURE9* texture) {
+	D3DXCreateTextureFromFileInMemory(pDevice, color, colorSize, texture);
+}
+
+void esp::doChams(IDirect3DDevice9* pDevice, D3DPRIMITIVETYPE primType, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount) {
+	if (GRUNT) {
+		pDevice->SetRenderState(D3DRS_ZENABLE, false);
+		pDevice->SetTexture(0, texRed);
+		pDevice->DrawIndexedPrimitive(primType, baseVertexIndex, minVertexIndex, numVertices, startIndex, primCount);
+		pDevice->SetRenderState(D3DRS_ZENABLE, true);
+	}
+}
+
 void esp::update(engine_snapshot snapshot) {
 	glm::vec3 pos = *reinterpret_cast<glm::vec3*>(addr::CAMERA_POS);
 	glm::vec3 dir = *reinterpret_cast<glm::vec3*>(addr::CAMERA_LOOK_VECTOR);

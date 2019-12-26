@@ -9,6 +9,7 @@ namespace globals {
 	void shutdown();
 }
 
-namespace menu {
+namespace settings {
+	extern bool menu_open;
 	extern bool aim_enabled;
 }

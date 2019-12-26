@@ -1,5 +1,10 @@
 #pragma once
 
+#include <d3d9.h>
+#include <d3dx9.h>
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "d3dx9.lib")
+
 #include "engine.h"
 
 const BYTE bRed[60] =
@@ -47,6 +52,12 @@ const BYTE bWhite[58] =
 
 class esp {
 public:
+	LPDIRECT3DTEXTURE9 texRed;
+	LPDIRECT3DTEXTURE9 texGreen;
+
+	void createTexture(IDirect3DDevice9* pDevice, LPCVOID color, UINT colorSize, LPDIRECT3DTEXTURE9* texture);
+
+	void doChams(IDirect3DDevice9* pDevice, D3DPRIMITIVETYPE primType, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount);
 	void update(engine_snapshot snapshot);
 };
 
