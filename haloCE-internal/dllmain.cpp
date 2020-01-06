@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "hook.h"
 #include "variables.h"
+#include "menu.h"
 
-#define DEBUG
+//#define DEBUG
 
 void start() {
 #ifdef DEBUG
@@ -14,11 +15,12 @@ void start() {
 
 	globals::init();
 	hook::init();
+	hack_menu.init();
 
-	while (!GetAsyncKeyState(VK_RMENU))
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	while (!glfwWindowShouldClose(hack_menu.get_window()))
+		hack_menu.tick();
 
-	hook::shutdown(); //unattaches functions
+	hook::shutdown(); //unattaches functions, imgui, and glfw stuff
 	globals::shutdown(); //cleans drawing hook
 
 #ifdef DEBUG

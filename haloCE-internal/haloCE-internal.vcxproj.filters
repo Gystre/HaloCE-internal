@@ -23,7 +23,13 @@
       <UniqueIdentifier>{01c7b78c-940d-4509-91ab-7ca02f49469f}</UniqueIdentifier>
     </Filter>
     <Filter Include="dependencies\imgui">
-      <UniqueIdentifier>{3b5b585a-e47b-4b4a-b42c-5f9eaf1a5354}</UniqueIdentifier>
+      <UniqueIdentifier>{f550d13c-f892-49ae-bf28-14eb4d2995d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\gl3w">
+      <UniqueIdentifier>{20828fec-ca5a-4ce9-979e-88802f1aa9d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dependencies\assets">
+      <UniqueIdentifier>{fed921d8-eb49-4f8d-951e-9eab759d7262}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,16 +78,31 @@
     <ClInclude Include="math.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>dependencies</Filter>
+    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>dependencies\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui.h">
       <Filter>dependencies\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imgui_impl_dx9.h">
+    <ClInclude Include="imgui\imgui_impl_glfw.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_opengl3.h">
       <Filter>dependencies\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>dependencies\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
       <Filter>dependencies\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\stb_rect_pack.h">
@@ -93,7 +114,13 @@
     <ClInclude Include="imgui\stb_truetype.h">
       <Filter>dependencies\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="menu.h">
+    <ClInclude Include="lib\gl3w\GL\gl3w.h">
+      <Filter>dependencies\gl3w</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\gl3w\GL\glcorearb.h">
+      <Filter>dependencies\gl3w</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
       <Filter>dependencies</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,17 +170,53 @@
     <ClCompile Include="math.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>dependencies</Filter>
+    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
       <Filter>dependencies\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_draw.cpp">
       <Filter>dependencies\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="imgui\imgui_impl_dx9.cpp">
+    <ClCompile Include="imgui\imgui_impl_glfw.cpp">
       <Filter>dependencies\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="menu.cpp">
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>dependencies\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\gl3w\GL\gl3w.c">
+      <Filter>dependencies\gl3w</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
       <Filter>dependencies</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="imgui\CHANGELOG.txt">
+      <Filter>dependencies\imgui</Filter>
+    </Text>
+    <Text Include="imgui\LICENSE.txt">
+      <Filter>dependencies\imgui</Filter>
+    </Text>
+    <Text Include="imgui\TODO.txt">
+      <Filter>dependencies\imgui</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="imgui\README.md">
+      <Filter>dependencies\imgui</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\supersaist.png">
+      <Filter>dependencies\assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

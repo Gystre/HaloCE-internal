@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GL/gl3w.h>
+#include <GLFW/glfw3.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #pragma comment(lib, "d3d9.lib")
@@ -7,8 +9,10 @@
 
 class menu {
 public:
-	static void init(HWND window, IDirect3DDevice9* pDevice);
-	static void shutdown();
-	static void tick();
-	static void checkInputs();
+	void init();
+	void shutdown();
+	void tick();
+	GLFWwindow* get_window();
 };
+
+extern menu hack_menu;

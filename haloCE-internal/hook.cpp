@@ -3,9 +3,9 @@
 #include "hook.h"
 #include "constants.h"
 #include "variables.h"
-#include "menu.h"
 #include "aimbot.h"
 #include "esp.h"
+#include "menu.h"
 #include "drawing.h"
 #include <detours.h>
 
@@ -44,55 +44,58 @@ HRESULT __stdcall hkD3D9BeginScene(IDirect3DDevice9* pDevice) {
 	static bool runOnce = true;
 	if (runOnce) {
 		runOnce = false;
-		menu::init(globals::engine->get_wnd_handle(), pDevice);
-		pse.createTexture(pDevice, (LPCVOID)&bRed, sizeof(bRed), &pse.texRed);
+		//pse.createTexture(pDevice, (LPCVOID)&bRed, sizeof(bRed), &pse.texRed);
+		drawing::init(pDevice);
 	}
 	return originalD3D9BeginScene(pDevice);
 }
 
-static bool is_down = false;
-static bool is_clicked = false;
 
 HRESULT __stdcall hkD3D9EndScene(IDirect3DDevice9* pDevice) {
-	menu::tick();
-
 	engine_snapshot snapshot;
 	globals::engine->get_snapshot(snapshot);
 	snapshot.filter_enemies();
+	GameObject* local_player = snapshot.get_player(); //might be a little faster to define local variable at top???
 
-	botaim.update(snapshot);
-	pse.update(snapshot);
+	if (!local_player) return originalD3D9EndScene(pDevice);
+
+	if (settings::aim_fov_enabled) {
+		drawing::drawRegularPolygon(D3DXVECTOR2(globals::engine->get_width() / 2, globals::engine->get_height() / 2), 300, settings::aim_fov_size, 30, D3DCOLOR_XRGB(255, 0, 0));
+	}
+
+	if (settings::lock_health) {
+		local_player->health = 1000;
+	}
+
+	if (settings::lock_shield) {
+		local_player->shield = 1000;
+	}
+
+	if (settings::lock_frag_grenades) {
+		local_player->frag_grenades = 4;
+	}
+
+	if (settings::lock_plasma_grenades) {
+		local_player->plasma_grenades = 4;
+	}
+
+	if (settings::aim_enabled) {
+		botaim.update(snapshot);
+	}
+
+	if (settings::esp_enabled) {
+		pse.update(snapshot, local_player);
+	}
 
 	if (GetAsyncKeyState(VK_F1)) {
 		for (GameObject* entity : snapshot.gameObjects) {
-			entity->position = snapshot.get_player()->position;
+			entity->position = local_player->position;
 		}
 	}
 
-	if (GetAsyncKeyState(VK_F2)) {
+	if (settings::speed && GetAsyncKeyState(VK_F2) ) {
 		vec3_t look = *reinterpret_cast<vec3_t*>(addr::CAMERA_LOOK_VECTOR);
-		snapshot.get_player()->position += look * 1.01;
-	}
-
-	if (GetAsyncKeyState(VK_LMENU))
-	{
-		is_clicked = false;
-		is_down = true;
-	}
-	else if (!GetAsyncKeyState(VK_LMENU) && is_down)
-	{
-		is_clicked = true;
-		is_down = false;
-	}
-	else
-	{
-		is_clicked = false;
-		is_down = false;
-	}
-
-	if (is_clicked)
-	{
-		settings::aim_enabled = !settings::aim_enabled;
+		local_player->position += look * settings::how_fast;
 	}
 
 	return originalD3D9EndScene(pDevice);
@@ -119,8 +122,8 @@ void hook::init() {
 	originalD3D9EndScene = (D3D9EndScene_t)(d3d9VTable[42]);
 	AttachFunc(&(PVOID&)originalD3D9EndScene, hkD3D9EndScene);
 
-	originalD3D9DrawIndexedPrimitive = (D3D9DrawIndexedPrimitive_t)(d3d9VTable[82]);
 	//no idea why this not working, not getting any error messages
+	//originalD3D9DrawIndexedPrimitive = (D3D9DrawIndexedPrimitive_t)(d3d9VTable[82]);
 	//AttachFunc(&(PVOID&)originalD3D9DrawIndexedPrimitive, hkD3D9DrawIndexedPrimitive);
 
 	dummyD3D9Device->Release();
@@ -128,7 +131,7 @@ void hook::init() {
 }
 
 void hook::shutdown() {
-	menu::shutdown();
+	hack_menu.shutdown();
 	DetachFunc(&(PVOID&)originalD3D9EndScene, hkD3D9EndScene);
 	DetachFunc(&(PVOID&)originalD3D9BeginScene, hkD3D9BeginScene);
 	//DetachFunc(&(PVOID&)originalD3D9DrawIndexedPrimitive, hkD3D9DrawIndexedPrimitive);

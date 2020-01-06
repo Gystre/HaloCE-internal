@@ -58,7 +58,7 @@ public:
 	void createTexture(IDirect3DDevice9* pDevice, LPCVOID color, UINT colorSize, LPDIRECT3DTEXTURE9* texture);
 
 	void doChams(IDirect3DDevice9* pDevice, D3DPRIMITIVETYPE primType, INT baseVertexIndex, UINT minVertexIndex, UINT numVertices, UINT startIndex, UINT primCount);
-	void update(engine_snapshot snapshot);
+	void update(engine_snapshot snapshot, GameObject* local_player);
 };
 
 extern esp pse;

@@ -31,7 +31,12 @@ halo_engine::halo_engine()
 			}
 		}
 	}
-	haloHWND = FindWindowA(FALSE, "Halo");
+	if (FindWindowA(FALSE, "Halo")) {
+		haloHWND = FindWindowA(FALSE, "Halo");
+	}
+	else {
+		MessageBoxA(NULL, "Error", "Couldn't find window handle. Program name is not 'Halo'", MB_OK);
+	}
 }
 
 void halo_engine::get_snapshot(engine_snapshot& snapshot)

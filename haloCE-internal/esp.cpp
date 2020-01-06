@@ -6,6 +6,9 @@
 #include "drawing.h"
 #include "vector4d.h"
 #include "math.h"
+#include <string>
+#include <glm/gtc/matrix_transform.hpp>
+#include <algorithm>
 
 esp pse;
 
@@ -43,19 +46,39 @@ void esp::doChams(IDirect3DDevice9* pDevice, D3DPRIMITIVETYPE primType, INT base
 	}
 }
 
-void esp::update(engine_snapshot snapshot) {
+void esp::update(engine_snapshot snapshot, GameObject* local_player) {
+	float display_w = globals::engine->get_width(); //alot faster to define local variable at top than reference globals namespace lots of times
+	float display_h = globals::engine->get_height();
+	float horizontalFovRadians = **reinterpret_cast<float**>(addr::PTR_TO_CAMERA_HORIZONTAL_FIELD_OF_VIEW_IN_RADIANS);
+	float verticalFov = horizontalFovRadians * display_h / display_w;
+	verticalFov = std::clamp(verticalFov - .03f, 0.1f, glm::pi<float>()); // Have to offset by this to get correct ratio for 16:9, need to look into this further
+	glm::mat4 projection_matrix = glm::perspectiveFov(verticalFov, display_w, display_h, 0.5f, 15.0f);
+
 	glm::vec3 pos = *reinterpret_cast<glm::vec3*>(addr::CAMERA_POS);
 	glm::vec3 dir = *reinterpret_cast<glm::vec3*>(addr::CAMERA_LOOK_VECTOR);
 	glm::vec3 lookAt = pos + dir;
-
 	glm::mat4 view_matrix = glm::lookAt(pos, lookAt, glm::vec3(0, 0, 1));
+
+	//thanks halo tas <3
+	glm::mat4 view_projection_matrix = projection_matrix * view_matrix;
+
+	float r = settings::esp_color[0];
 
 	for (int i = 0; i < snapshot.gameObjects.size(); i++) {
 		GameObject* entity = snapshot.gameObjects[i];
 		vec2_t screen_pos;
-		vec3_t view_angles = get_view_angles();
-		if (entity && entity->tag_id != tags::PLAYER && entity->health > 0 && math::openGLworldToScreen(view_matrix, entity->position, globals::engine->get_width(), globals::engine->get_height(), screen_pos)) {
-			drawing::drawString(screen_pos.x, screen_pos.y, COLORREF(RGB(255, 0, 0)), tag_to_name(entity->tag_id).c_str());
+		float dist = sqrt((entity->position.x - local_player->position.x) * (entity->position.x - local_player->position.x) +
+						(entity->position.y - local_player->position.y) * (entity->position.y - local_player->position.y) +
+						(entity->position.z - local_player->position.z) * (entity->position.z - local_player->position.z));
+
+		if (entity && entity->tag_id != tags::PLAYER && entity->health > 0 && math::openGLworldToScreen(view_projection_matrix, entity->position, globals::engine->get_width(), globals::engine->get_height(), screen_pos)) {
+			drawing::drawString(screen_pos.x, screen_pos.y, D3DCOLOR_ARGB(255, 255, 0, 0), tag_to_name(entity->tag_id).c_str());
+			drawing::drawString(screen_pos.x, screen_pos.y + 11, D3DCOLOR_ARGB(255, 255, 0, 0), ("Health: " + std::to_string(entity->health * 100) + "%%").c_str());
+			drawing::drawString(screen_pos.x, screen_pos.y + 22, D3DCOLOR_ARGB(255, 255, 0, 0), (std::to_string(dist) + " units").c_str());
+
+			if (settings::tracers_enabled) {
+				drawing::drawLine(D3DXVECTOR2(display_w/2, display_h/2), D3DXVECTOR2(screen_pos.x, screen_pos.y), 2, D3DCOLOR_ARGB(255, 255, 0, 0));
+			}
 		}
 	}
 }

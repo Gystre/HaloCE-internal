@@ -7,6 +7,8 @@ namespace addr {
 	extern uint32_t* VIEW_MATRIX;
 	extern uint32_t* CAMERA_POS;
 	extern uint32_t* CAMERA_LOOK_VECTOR;
+	extern uint32_t* GAME_SPEED;
+	extern uint32_t* PTR_TO_CAMERA_HORIZONTAL_FIELD_OF_VIEW_IN_RADIANS;
 }
 
 struct ObjectPoolObject

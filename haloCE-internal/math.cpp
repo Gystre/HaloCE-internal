@@ -23,4 +23,10 @@ namespace math {
 
 		return true;
 	}
+
+	float get_w2s_distance(float width, float height, vec3_t enemy, float radius) {
+		float x = enemy.x - width / 2;
+		float y = enemy.y - height / 2;
+		return radius * radius - (x * x + y * y);
+	}
 }
