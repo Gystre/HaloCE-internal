@@ -181,7 +181,8 @@ void drawFunTab() {
 		//if (ImGui::IsItemHovered()) ImGui::SetTooltip("Auto aim so you don't have to move your mouse");
 		ImGui::Spacing();
 		ImGui::RadioButton("Hold (rmb)", &settings::aim_style, 0); ImGui::SameLine();
-		ImGui::RadioButton("Tap (lalt)", &settings::aim_style, 1);
+		ImGui::RadioButton("Tap (lalt)", &settings::aim_style, 1); ImGui::SameLine();
+		ImGui::RadioButton("Fov (lalt", &settings::aim_style, 2);
 		ImGui::Spacing();
 		ImGui::Combo("##AimTargetSelection", &settings::aim_selection_style, aimTargetSelection, IM_ARRAYSIZE(aimTargetSelection));
 		ImGui::Checkbox("FOV", &settings::aim_fov_enabled); ImGui::SameLine();

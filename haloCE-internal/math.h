@@ -10,5 +10,5 @@ namespace math {
 	//maybe move this function to matrix class???
 	//column major
 	bool openGLworldToScreen(glm::mat4 view, vec3_t pos, int windowWidth, int windowHeight, vec2_t& screen);
-	float get_w2s_distance(float width, float height, vec3_t enemy, float radius);
+	float get_w2s_distance(RECT window_rect, vec2_t screen_enemy_pos, float radius);
 }

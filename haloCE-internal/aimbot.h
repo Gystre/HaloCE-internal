@@ -5,6 +5,7 @@
 //not sure if these belong in enum or defines :P
 #define HOLD 0
 #define TAP 1
+#define TEST 2
 
 #define CROSSHAIR 0
 #define DISTANCE 1

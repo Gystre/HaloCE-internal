@@ -5,11 +5,22 @@ using namespace addr;
 
 int8_t MAGIC_DATAPOOLHEADER[] = {/* 0x00, 0x08, 0x0C, 0x00, 0x01, 0x00, 0x00, 0x00,*/ 0x40, 0x74, 0x40, 0x64 };
 
-//relative to window, not desktop
-RECT halo_engine::window_client_rect() {
+//relative to window rectangle, resolution
+RECT halo_engine::get_window_client_rect() {
 	if (haloHWND) {
 		RECT outRect;
 		if (GetClientRect(haloHWND, &outRect)) {
+			return outRect;
+		}
+	}
+	return RECT();
+}
+
+//relative to desktop, specific x,y coordinate of window
+RECT halo_engine::get_window_rect() {
+	if (haloHWND) {
+		RECT outRect;
+		if (GetWindowRect(haloHWND, &outRect)) {
 			return outRect;
 		}
 	}
@@ -65,11 +76,11 @@ HWND halo_engine::get_wnd_handle() {
 }
 
 float halo_engine::get_width() {
-	return window_client_rect().right;
+	return get_window_client_rect().right;
 }
 
 float halo_engine::get_height() {
-	return window_client_rect().bottom;
+	return get_window_client_rect().bottom;
 }
 
 //guess this is write process memory

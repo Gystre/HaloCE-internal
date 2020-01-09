@@ -42,7 +42,8 @@ public:
 	halo_engine();
 
 
-	RECT window_client_rect();
+	RECT get_window_client_rect();
+	RECT get_window_rect();
 
 	void get_snapshot(engine_snapshot& snapshot);
 	HWND get_wnd_handle();

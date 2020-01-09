@@ -1,11 +1,10 @@
-﻿  aimbot.cpp
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(40,44): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(42,203): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(42,172): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(49,140): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(49,109): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(103,33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(103,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(141,34): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\xaist\source\repos\haloCE-internal\haloCE-internal\aimbot.cpp(141,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  haloCE-internal.vcxproj -> C:\Users\xaist\source\repos\haloCE-internal\Debug\haloCE-internal.dll
+﻿  engine.cpp
+C:\Users\xaist\OneDrive\Documents\Github\HaloCE-internal\haloCE-internal\engine.cpp(79,33): warning C4244: 'return': conversion from 'LONG' to 'float', possible loss of data
+C:\Users\xaist\OneDrive\Documents\Github\HaloCE-internal\haloCE-internal\engine.cpp(83,33): warning C4244: 'return': conversion from 'LONG' to 'float', possible loss of data
+  esp.cpp
+C:\Users\xaist\OneDrive\Documents\Github\HaloCE-internal\haloCE-internal\esp.cpp(67,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\xaist\OneDrive\Documents\Github\HaloCE-internal\haloCE-internal\esp.cpp(74,198): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\xaist\OneDrive\Documents\Github\HaloCE-internal\haloCE-internal\esp.cpp(74,167): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  variables.cpp
+  Generating Code...
+  haloCE-internal.vcxproj -> C:\Users\xaist\OneDrive\Documents\Github\HaloCE-internal\Debug\haloCE-internal.dll
